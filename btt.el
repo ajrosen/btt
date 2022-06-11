@@ -5,8 +5,6 @@
 ;; Version: 1.0
 ;; Package-Requires: ((emacs "26.1"))
 ;; Keywords: hardware
-;; Prefix: btt
-;; Separator: /
 
 ;; This file is not part of GNU Emacs.
 
@@ -59,6 +57,8 @@
 
 ;;; Code:
 
+(require 'url-parse)
+
 ;; Structures that represent a TouchBar widget and its attributes
 (cl-defstruct btt--widget name uuid args func)
 (cl-defstruct btt--widget-face text icon_data icon_path background_color font_color font_size)
@@ -68,12 +68,12 @@
 (eval-when-compile (defvar btt--current-widget nil "The widget currently being processed by `btt--run-functions'."))
 
 (cl-defstruct (btt--api-url (:include url)) query-string shared_secret) ; A URL with separate query-string and shared_secret slots
-(setq btt--url (make-btt--api-url))
+(defvar btt--url (make-btt--api-url))
 
 
 ;;;; Customization
 (defgroup btt nil
-  "BetterTouchTool web server"
+  "BetterTouchTool web server."
   :tag "BetterTouchTool"
   :group 'external
   :link '(url-link :tag "Integrated Webserver" "https://docs.bettertouchtool.net/docs/1104_webserver.html")
@@ -106,25 +106,27 @@
   :type 'string)
 
 (defcustom btt-uuids nil
-  "List of BetterTouchTool variables and their corresponding UUIDs"
+  "List of BetterTouchTool variables and their corresponding UUIDs."
   :tag "BTT UUIDs"
   :set (lambda (s v) (set-default s v) (dolist (x v) (if (plist-member v x) (btt-set-string-variable x (plist-get v x)))))
   :initialize (lambda (s v) (custom-initialize-set s v))
   :type '(plist :key-type (string :tag "Name") :value-type (string :tag "UUID")))
 
-(defconst btt-default-fg "white" "Default widget foreground color")
-(defconst btt-default-bg "gray29" "Default widget background color")
-(defconst btt-default-font-size 15 "Default widget font size")
+(defconst btt-default-fg "white" "Default widget foreground color.")
+(defconst btt-default-bg "gray29" "Default widget background color.")
+(defconst btt-default-font-size 15 "Default widget font size.")
 
 (defun btt-customize ()
+  "Customize btt."
   (interactive)
   (customize-group 'btt t))
 
 
 ;;;; Helper functions
 (defun btt--rgb-to-btt (color &optional transparency)
-  "Convert COLOR to the RGB format used by BetterTouchTool.  The
-default TRANSPARENCY is 255.
+  "Convert COLOR to the RGB format used by BetterTouchTool.
+
+The default TRANSPARENCY is 255.
 
 If COLOR is not a named color or an RGB triplet then return COLOR."
 
@@ -154,12 +156,11 @@ is the Touch Bar widget's UUID."
   (put var 'btt--face nil)
   (remove-variable-watcher var 'btt--variable-watcher))
 
-(defun btt--variable-watcher (symbol newval operation where)
-  "Function `btt-watch' uses for its call to `add-variable-watcher'.
+(defun btt--variable-watcher (symbol newval _operation _where)
+  "Function used by `btt-assign-var' for its call to `add-variable-watcher'.
 
 SYMBOL will be the VAR given to `btt-watch'.  NEWVAL will have
 btt--uuid and btt--face properties, as added by `btt-watch'."
-  (ignore operation where)
   (let ((uuid (get symbol 'btt--uuid))
 	(face (get symbol 'btt--face)))
     (btt-update-touch-bar-widget uuid newval (if (functionp face) (funcall face) face))))
@@ -235,8 +236,9 @@ If ASYNC is non-nil use `use-retrieve'.  The default is to use
   (kill-buffer (btt--call-api "execute_assigned_actions_for_trigger" (list (list "uuid" uuid)))))
 
 (defun btt-refresh-widget (uuid)
-  "Execute all scripts assigned to a script widget and update its
-contents accordingly.  The widget is identified by its UUID."
+  "Execute all scripts assigned to a script widget.
+
+The widget is identified by its UUID."
   (interactive "sWidget UUID: ")
   (kill-buffer (btt--call-api "refresh_widget" (list (list "uuid" uuid)))))
 
@@ -284,7 +286,7 @@ precedence if it is non-nil."
 (defun btt-assign-func (widget func &optional args)
   "Use FUNC to update the Touch Bar WIDGET.
 
-FUNC may be any valid lisp expression; it will be processed by
+FUNC may be any valid Lisp expression; it will be processed by
 `eval'.  The string representation of its result will become the
 text of the widget.  ARGS is an optional parameter to be
 interpreted by FUNC.
@@ -347,8 +349,7 @@ Requires Emacs version 26.1 or later."
 
 ;;;###autoload
 (defun btt-set-widget (widget text &optional face)
-  "Set the TEXT of the Touch Bar WIDGET with optional FACE
-attributes.
+  "Set the TEXT of the Touch Bar WIDGET with optional FACE attributes.
 
 WIDGET is the name of a variable in `btt-uuids' whose value is
 the Touch Bar widget's UUID.
