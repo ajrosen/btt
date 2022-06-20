@@ -28,8 +28,8 @@
 ;; Send commands to a BetterTouchTool Webserver.
 ;; BetterTouchTool, MacOS
 ;;
-;; (see URL `https://docs.bettertouchtool.net/')
-;; (see URL `https://docs.bettertouchtool.net/docs/1104_webserver.html')
+;; (see URL `https://docs.folivora.ai/')
+;; (see URL `https://docs.folivora.ai/docs/1104_webserver.html')
 ;;
 ;; `btt-customize'
 ;;
@@ -76,8 +76,8 @@
   "BetterTouchTool web server."
   :tag "BetterTouchTool"
   :group 'external
-  :link '(url-link :tag "Integrated Webserver" "https://docs.bettertouchtool.net/docs/1104_webserver.html")
-  :link '(url-link :tag "BetterTouchTool Documentation" "https://docs.bettertouchtool.net/"))
+  :link '(url-link :tag "Integrated Webserver" "https://docs.folivora.ai/docs/1104_webserver.html")
+  :link '(url-link :tag "BetterTouchTool Documentation" "https://docs.folivora.ai/"))
 
 (defcustom btt-protocol "http"
   "Protocol for the BetterTouchTool web server."
