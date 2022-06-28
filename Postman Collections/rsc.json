@@ -1,0 +1,491 @@
+{
+	"info": {
+		"_postman_id": "815aa99a-1b76-4f18-bf64-ed74de2a0cd9",
+		"name": "RStudio Connect",
+		"description": "[https://strongerpostroevolumemodel.ppfa.org/__docs__/api](https://strongerpostroevolumemodel.ppfa.org/__docs__/api)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List",
+					"_postman_id": "a31be12c-a424-49eb-ab63-782bbccd708c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80113409-f1d3-4c05-bd82-76fb28aba0bf",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "39a2d052-65b6-4c9e-ba0b-e58d44087201",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "2dc5651c-42db-4bbc-a70c-ad64425d1c56",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"andrew.rosen@ppfa.org\",\n    \"first_name\": \"Andy\",\n    \"last_name\": \"Rosen\",\n    \"username\": \"andrew.rosen@ppfa.org\",\n    \"user_role\": \"viewer\",\n    \"unique_id\": \"{{$guid}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{endpoint}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Lock",
+					"_postman_id": "b8896c36-123e-4626-a884-72b6e27d9647",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"locked\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{endpoint}}/users/{{guid}}/lock"
+					},
+					"response": []
+				},
+				{
+					"name": "Unlock",
+					"_postman_id": "1e1119f9-60f3-497f-ad08-6f697ce5dd6b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"locked\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{endpoint}}/users/{{guid}}/lock"
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"_postman_id": "136acc5b-a120-47fe-94d4-2c39c6d1d69c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/users/remote?prefix=",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"users",
+								"remote"
+							],
+							"query": [
+								{
+									"key": "prefix",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "26ed46da-70e2-430d-9324-95cb58dbe0b3"
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "R",
+					"_postman_id": "fc4be1d6-5e73-4011-9bde-e51fbd714acc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/server_settings/r"
+					},
+					"response": []
+				},
+				{
+					"name": "Python",
+					"_postman_id": "22c87a94-b33c-4576-b797-1cfa1f703c12",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/server_settings/python"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "406cfa40-d442-47b1-80b8-d17764d2b962"
+		},
+		{
+			"name": "Content",
+			"item": [
+				{
+					"name": "List",
+					"_postman_id": "5995df4e-8923-428c-81ad-3a2665979604",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/content"
+					},
+					"response": []
+				},
+				{
+					"name": "Details",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da10c91d-8bc7-44d1-8e2a-878d6cfb1e37",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "df6ebbf8-11b6-46fd-89ae-1d17a2f29702",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/content/{{content_guid}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Details (experimental)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da10c91d-8bc7-44d1-8e2a-878d6cfb1e37",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "a8a84ed8-9c4e-4d2e-9f23-4f5f404aa6dc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/experimental/content/{{content_guid}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da10c91d-8bc7-44d1-8e2a-878d6cfb1e37",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "dcfc2bc5-a1fe-4381-8be4-720b358369ce",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/content/{{content_guid}}/environment"
+					},
+					"response": []
+				},
+				{
+					"name": "Permissions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da10c91d-8bc7-44d1-8e2a-878d6cfb1e37",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "b93a55e6-c269-477a-9d1b-1cccdf39595f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/content/{{content_guid}}/permissions"
+					},
+					"response": []
+				},
+				{
+					"name": "Vanities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "070a81cf-4e03-411d-9d24-5b0c2f9a480b",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"content_guid\", jsonData[0].content_guid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "1f7d3d27-9810-496f-8fc8-e6b4520cb0b1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/vanities"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "67b89ba5-e429-4477-96ab-2a2f840870c4"
+		},
+		{
+			"name": "Metrics",
+			"item": [
+				{
+					"name": "Shiny Usage",
+					"_postman_id": "d06b0df4-005c-4a2d-9fd1-a213e6cd2ff5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/instrumentation/shiny/usage?asc_order=false&limit=500",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"instrumentation",
+								"shiny",
+								"usage"
+							],
+							"query": [
+								{
+									"key": "asc_order",
+									"value": "false"
+								},
+								{
+									"key": "limit",
+									"value": "500",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Content Visits",
+					"_postman_id": "a7e55d7f-e0b3-417f-9301-f83cfa89e15f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/instrumentation/content/visits"
+					},
+					"response": []
+				},
+				{
+					"name": "Audit Logs",
+					"_postman_id": "cc7d74b5-4f24-43a4-aa95-12f8058cfa4c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{endpoint}}/audit_logs?ascOrder=false&limit=50",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"audit_logs"
+							],
+							"query": [
+								{
+									"key": "ascOrder",
+									"value": "false"
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"description": "Default: 20; >=1 and <= 500"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "83bfd150-54ee-412f-adea-144b8e0a02bd"
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "List",
+					"_postman_id": "48c39644-4c68-4bd4-b120-a17ec76a293a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/tags"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "6db49b70-df3e-4a66-aa72-eaed3d34830a"
+		},
+		{
+			"name": "Bundles",
+			"item": [
+				{
+					"name": "List",
+					"_postman_id": "419b6a68-48fd-478f-861b-8e4f840022c1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{endpoint}}/experimental/content/{{content_guid}}/bundles"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "468b7f05-2f65-466b-9865-dc7c726bd17a"
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": {
+			"value": "Key {{API Key}}",
+			"key": "Authorization"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "379b7fd7-2506-4d04-ab57-25f78f442da1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7698872d-26df-4f8d-8938-43b595819f73",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "02d46be8-ee72-4d8a-b3e4-1c3cfde8e5cb",
+			"key": "content_guid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "22df1948-01d7-4ef7-9591-0eeccfe6b101",
+			"key": "guid",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
